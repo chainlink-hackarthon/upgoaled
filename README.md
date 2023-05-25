@@ -1,8 +1,8 @@
-# UpGoaled 🏁
+# Upgoaled 🏁
 An accountability platform to reach your goals and take responsibility for your progress.
 
 ## introduction  
-UpGoaled, a decentralised web application for goal tracking and accomplishment. On our secure platform, users pledge tokens to set their goals. If a goal isn't met, the tokens are forfeited and redistributed amongst the users who successfully achieve their goals. This unique gamification adds a competitive edge and fosters collective responsibility. Thus, UpGoaled transcends traditional goal-tracking platforms, offering a rewarding ecosystem that motivates users to strive for their objectives, creating a community with aligned incentives and the gamification of activities
+Upgoaled, a decentralised web application for goal tracking and accomplishment. On our secure platform, users pledge tokens to set their goals. If a goal isn't met, the tokens are forfeited and redistributed amongst the users who successfully achieve their goals. This unique gamification adds a competitive edge and fosters collective responsibility. Thus, UpGoaled transcends traditional goal-tracking platforms, offering a rewarding ecosystem that motivates users to strive for their objectives, creating a community with aligned incentives and the gamification of activities
 
 ## Key Features
 1. User Management: Users can create an account and manage their personal goals.
