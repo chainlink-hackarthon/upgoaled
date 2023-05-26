@@ -14,7 +14,7 @@ contract GoalTracker is Ownable {
     // Goal struct to store goal information
     struct Goal {
         string title; // Title of the goal
-        string description; // Description of the goal
+        uint distance; // Description of the goal
         uint stake; // Amount of stake for the goal
         uint[] participants; // List of user IDs participating in the goal
         bool completed; // Whether the goal is completed
@@ -30,7 +30,7 @@ contract GoalTracker is Ownable {
     uint public goalPoolCount; // Counter for the total number of goal pools
 
     // Maximum number of goal pools allowed
-    uint public constant MAX_GOAL_POOLS = 2;
+    uint public constant MAX_GOAL_POOLS = 3;
     uint public constant MAX_GOALS_PER_POOL = 3;
 
     // Mappings to store user, goal, and goal pool data
@@ -59,8 +59,8 @@ contract GoalTracker is Ownable {
 
         addressUsed[_userAddress] = true;
     }
-    // Function to create a new goal pool with a name
-    function createGoalPool(string memory _name) public {
+    // Function to create a goal pool 
+    function createGoalPool(string memory _name) public onlyOwner{
         // Check if the number of goal pools has reached the limit
         require(goalPoolCount < MAX_GOAL_POOLS, "Maximum number of goal pools reached");
 
@@ -68,12 +68,11 @@ contract GoalTracker is Ownable {
         goalPools[goalPoolCount] = GoalPool(_name, new uint[](0));
         emit GoalPoolCreated(goalPoolCount, _name);
     }
+    // Function to create a goal within a goal pool
+   function createGoal(string _title, uint _distance) public onlyOwner{
 
-    // Function to associate a goal with a user
-    function addGoalToUser(uint _userId, uint _goalId) internal {
-        users[_userId].goals.push(_goalId);
-    }
-   
+
+   }
     // Function to create a goal, stake tokens, and add it to the goal pool
     function joinGoal(string memory _title, uint _stake, address _token, Address, uint _goalPoolId, uint _userId) public {
         // Check if the number of goals in the pool has reached the limit
