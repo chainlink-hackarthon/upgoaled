@@ -1,41 +1,32 @@
 # Upgoaled 🏁
 An accountability platform to reach your goals and take responsibility for your progress.
 
-## introduction  
-Upgoaled, a decentralised web application for goal tracking and accomplishment. On our secure platform, users pledge tokens to set their goals. If a goal isn't met, the tokens are forfeited and redistributed amongst the users who successfully achieve their goals. This unique gamification adds a competitive edge and fosters collective responsibility. Thus, UpGoaled transcends traditional goal-tracking platforms, offering a rewarding ecosystem that motivates users to strive for their objectives, creating a community with aligned incentives and the gamification of activities
+## Introduction
+Upgoaled is a decentralized web application that revolutionizes the way individuals track and accomplish their goals. Users pledge tokens as a commitment to their goals. If a goal is not met, the tokens are forfeited and redistributed among users who have successfully accomplished their goals. This unique approach adds a competitive edge and fosters collective responsibility. As such, Upgoaled rises above traditional goal-tracking platforms by creating a rewarding ecosystem that motivates users to strive for their objectives. It cultivates a community with aligned incentives and gamifies the process of personal and shared achievements.
 
-## Key Features
-1. User Management: Users can create an account and manage their personal goals.
+## Overview
+Upgoaled is designed to motivate and reward users for accomplishing distance-based fitness goals such as running or cycling. Users can join predefined goals, stake a certain amount of cryptocurrency, and claim rewards upon goal completion within the stipulated timeframe.
 
-2. Goal Selection and Management: Users can join goals events, and track their progress. 
+## Key Features and Functionalities
+### User Onboarding:
+a. Users can connect their wallets (like MetaMask) seamlessly to the platform.
+b. A variety of available goals can be browsed and selected by the users.
 
-3. Staking: Users can pledge funds towards their goals as a commitment. If they complete the goal, they will get their pledged funds back. If they fail to complete the goal, they will not receive the funds they staked.
+### Goal Selection and Staking:
+a. Users can join a goal by staking the specified amount of cryptocurrency.
+b. The staked amount is securely locked in the smart contract until the goal's expiration date.
 
-4. Goal Pools: Users will be able to select from diffrent pools to which they can allocate their pledged funds. This allows for better organization and management of the user's goals and funds.
+### Fitness Tracking and Goal Verification:
+a. Distance-based activities (like running or cycling) are tracked via an API.
+b. Progress is updated in the smart contract based on the tracked data.
+c. Users can visualize their progress towards the goal on the platform's user-friendly interface.
 
-5. Community Participation: Users can join a community of other users who share the same goals, fostering a sense of camaraderie and mutual support.
+### Goal Completion and Reward Distribution:
+a. Upon successful completion of the goal within the specified timeframe, users can claim their rewards.
+b. Rewards are automatically distributed to eligible users upon successful claim.
+c. Unclaimed rewards are redistributed among users who completed the goal.
+d. Users forfeiting their staked amount if the goal is not completed within the timeframe.
 
-6. Transparent and Secure: The platform is built using smart contracts on the Ethereum blockchain, ensuring transparency and security in all transactions.
-
-7. Web3 Integration: The platform seamlessly works with Web3 wallets such as MetaMask, allowing users to securely sign transactions and interact with the app using their wallet.
-
-# Tech Stack
-
-- Smart Contracts: Solidity (Ethereum) - or EVM compatible blockchains
-- Backend: Node.js 
-- Frontend: React/javascript
-- Database: 
-- Web3 Wallet Integration: MetaMask
-- Chainlink Functions 
-
-- Creates a new user with a user with wallet address
-- Contract owner creates a new goal pool with a name
-- Contract owner creates a new goal with a title and associates it with a goal pool
-- Users join a goal and stake tokens
-- Transfers tokens from user to contract
-- Record user participation in the goal and integrate API for goal data
-
-- Determine how to mark a user as failed for a goal
-- Users can claim rewards after completing a goal
-- Calculates user's share of rewards from failed users
-- Transfers staked tokens and rewards back to the user
+### Front End and User Interface:
+a. The platform provides an intuitive interface for browsing goals, tracking progress, and claiming rewards.
+b. The responsive design ensures compatibility across various screen sizes and devices.
