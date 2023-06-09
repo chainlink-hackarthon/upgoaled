@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract Upgoaled is Ownable { 
 
     // Hardcoded address of the token.
-    address public constant TOKEN_ADDRESS = 0x660F00cA1c474eEFBb128C363D5d05AFd3fd0C7d;
+    address public constant TOKEN_ADDRESS = "NEED TO ADD TOKEN CONTRACT ADDRESS";
 
     // User struct to store user information.
     struct User {
