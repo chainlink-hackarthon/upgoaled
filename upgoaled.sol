@@ -1,16 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Upgoaled is Ownable, ChainlinkClient { 
-
-    // Chainlink variables
-    address private oracle;
-    bytes32 private jobId;
-    uint256 private fee;
+contract Upgoaled is Ownable { 
 
     // Hardcoded address of the token.
     address public constant TOKEN_ADDRESS = 0x2D54C76a3C48E6aFF35A40FFE85953c6Df6Ed3D4;
@@ -70,9 +64,7 @@ contract Upgoaled is Ownable, ChainlinkClient {
     mapping(uint => GoalPool) public goalPools;
     mapping(address => bool) public userAddressUsed;
     mapping(address => bool) uncompletedUsersId;
-    mapping(bytes32 => address) private requestIdToWalletAddress;
-    mapping(bytes32 => uint) private requestIdToGoalId;
-
+    
     // Events
     event UserCreated(string name, address indexed walletAddress);
     event GoalPoolCreated(uint indexed goalPoolId, string name);
@@ -208,22 +200,22 @@ contract Upgoaled is Ownable, ChainlinkClient {
         goalPools[goalPoolId].activeGoals--;
     }   
     // Function to mark a user as having passed the goal. (Only Owner)
-    function completeGoal(address _walletAddress, uint _goalId) public onlyOwner markFailedIfExpired(_goalId, _walletAddress) {
+    function completeGoal(address _walletAddress, uint _goalId, uint _userDistance) public onlyOwner markFailedIfExpired(_goalId, _walletAddress) {
         User storage user = users[_walletAddress];
 
         require(user.walletAddress != address(0), "completeGoal: user must exist");
+
+        require(_userDistance >= goals[_goalId].distance, "User distance must be greater than or equal to the goal distance");
+
         require(user.goalParticipations[_goalId].progress == UserProgress.JOINED, "User is required to have joined the goal");
+
         require(user.goalParticipations[_goalId].progress != UserProgress.FAILED, "User must not be marked as failed");
 
-        // Make a request to Chainlink
-        Chainlink.Request memory req = buildChainlinkRequest(jobId, address(this), this.fulfill.selector);
-        req.add("get", "http://api.example.com/userDistance"); // replace with the URL of your API
-        req.add("path", "distance"); // replace with the path to the distance in the API response
-        bytes32 requestId = sendChainlinkRequestTo(oracle, req, fee);
-
-        // Store _walletAddress and _goalId with _requestId as the key
-        requestIdToWalletAddress[requestId] = _walletAddress;
-        requestIdToGoalId[requestId] = _goalId;
+        // Mark the user as completed in its goalParticipations mapping.
+        user.goalParticipations[_goalId].progress = UserProgress.COMPLETED;
+        
+        // Store the user's distance in the goalParticipations mapping.
+        user.goalParticipations[_goalId].userDistance = _userDistance;       
     }
     // Function to calculate the user's share of the rewards
     function calculateUserRewards(address userAddress, uint goalId) internal view returns (uint) {
@@ -235,20 +227,6 @@ contract Upgoaled is Ownable, ChainlinkClient {
         uint userRewards = (userStakedAmount + rewardsFromFailedStake) - claimFees;
 
         return userRewards;
-    }
-   // Modify the fulfill function like this
-    function fulfill(bytes32 _requestId, uint256 _userDistance) public recordChainlinkFulfillment(_requestId) {
-        // Retrieve _walletAddress and _goalId from the mappings
-        address _walletAddress = requestIdToWalletAddress[_requestId];
-        uint _goalId = requestIdToGoalId[_requestId];
-
-        User storage user = users[_walletAddress];
-
-        // Store the user's distance in the goalParticipations mapping.
-        user.goalParticipations[_goalId].userDistance = _userDistance;
-
-        // Mark the user as completed in its goalParticipations mapping.
-        user.goalParticipations[_goalId].progress = UserProgress.COMPLETED;
     }
     // Function to allow a user to claim rewards after completing a goal
     function claimRewards(uint _goalId) public userExists(msg.sender) goalExists(_goalId) {        
