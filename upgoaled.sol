@@ -20,7 +20,7 @@ contract Upgoaled is Ownable {
     struct Goal {
         uint goalPoolId;
         string activity;
-        uint distance;
+        uint userData;
         uint stake;
         uint totalFailedStake;
         address[] participants;
@@ -200,12 +200,12 @@ contract Upgoaled is Ownable {
         goalPools[goalPoolId].activeGoals--;
     }   
     // Function to mark a user as having passed the goal. (Only Owner)
-    function completeGoal(address _walletAddress, uint _goalId, uint _userDistance) public onlyOwner markFailedIfExpired(_goalId, _walletAddress) {
+    function completeGoal(address _walletAddress, uint _goalId, uint _userData) public onlyOwner markFailedIfExpired(_goalId, _walletAddress) {
         User storage user = users[_walletAddress];
 
         require(user.walletAddress != address(0), "completeGoal: user must exist");
 
-        require(_userDistance >= goals[_goalId].distance, "User distance must be greater than or equal to the goal distance");
+        require(_userData >= goals[_goalId].userData, "User distance must be greater than or equal to the goal distance");
 
         require(user.goalParticipations[_goalId].progress == UserProgress.JOINED, "User is required to have joined the goal");
 
@@ -215,7 +215,7 @@ contract Upgoaled is Ownable {
         user.goalParticipations[_goalId].progress = UserProgress.COMPLETED;
         
         // Store the user's distance in the goalParticipations mapping.
-        user.goalParticipations[_goalId].userDistance = _userDistance;       
+        user.goalParticipations[_goalId].userDistance = _userData;       
     }
     // Function to calculate the user's share of the rewards
     function calculateUserRewards(address userAddress, uint goalId) internal view returns (uint) {
