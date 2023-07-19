@@ -17,7 +17,7 @@ b. Goal browsing: A variety of tailored goals are available to be selected by th
 a. Users can join a goal by pledging an amount of Cryptocurrency to a goal pool within the smart contract.
 b. The staked amount is securely locked in the smart contract until the goal's expiration date.
 
-###Tracking and Goal Verification:
+### Tracking and Goal Verification:
 a. Activity tracking: Quantifiable activities are tracked via an API.
 b. Progress: Progress of a users goal from an API is passed to in the smart contract for secure data verification.
 c. Progress visualization: Users can visualize their progress towards the goal on the platform's user-friendly interface.
